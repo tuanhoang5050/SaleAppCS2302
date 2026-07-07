@@ -1,15 +1,19 @@
 pipeline {
-    agent any
+    agent any 
+
     stages {
-        stage('Chuẩn bị Code') {
+        stage('Bước 1: Kéo Code (Checkout)') {
             steps {
-                git 'https://github.com/tuanhoang5050/SaleAppCS2302.git'
+   
+                checkout scm 
             }
         }
-        stage('Chạy thử nghiệm Demo') {
+        
+        stage('Bước 2: Chạy Demo (Test)') {
             steps {
-                bat 'cd saleapppractice\\saleapp'
-                bat 'python demo.py'
+                dir('saleapppractice/saleapp') {
+                    bat 'python demo.py' 
+                }
             }
         }
     }
