@@ -5,8 +5,10 @@ pipeline {
         stage('Test Backend (Flask)') {
             steps {
                 checkout scm
-                sh 'cd saleapppractice/saleapp'
-                sh 'python3 demo.py'
+                
+                dir('saleapppractice/saleapp') {
+                    sh 'python3 demo.py'
+                }
             }
         }
     }
