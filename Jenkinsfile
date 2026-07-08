@@ -9,16 +9,16 @@ pipeline {
     stages {
         stage('Test Backend (Flask)') {
             steps {
-
                 checkout scm
-                bat 'cd saleapppractice/saleapp'
-                bat 'python demo.py' //
+                sh 'cd saleapppractice/saleapp'
+                sh 'python3 demo.py'
             }
         }
         stage('Deploy lên Vercel') {
             steps {
-                bat 'npm install -g vercel'
-                bat 'vercel --token %VERCEL_TOKEN% --prod --yes'
+                // Đổi 'bat' thành 'sh'
+                sh 'npm install -g vercel'
+                sh 'vercel --token $VERCEL_TOKEN --prod --yes'
             }
         }
     }
