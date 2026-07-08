@@ -1,19 +1,12 @@
 pipeline {
-    agent any 
+    agent any
 
     stages {
-        stage('Bước 1: Kéo Code (Checkout)') {
+        stage('Test Backend (Flask)') {
             steps {
-   
-                checkout scm 
-            }
-        }
-        
-        stage('Bước 2: Chạy Demo (Test)') {
-            steps {
-                dir('saleapppractice/saleapp') {
-                    bat 'python demo.py' 
-                }
+                checkout scm
+                sh 'cd saleapppractice/saleapp'
+                sh 'python3 demo.py'
             }
         }
     }
