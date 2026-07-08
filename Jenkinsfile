@@ -1,19 +1,24 @@
 pipeline {
-    agent any 
-
+    agent any
+    tools {
+        nodejs 'node'
+    }
+    environment {
+        VERCEL_TOKEN = credentials('VERCEL_AUTH_TOKEN')
+    }
     stages {
-        stage('Bước 1: Kéo Code (Checkout)') {
+        stage('Test Backend (Flask)') {
             steps {
-   
-                checkout scm 
+
+                checkout scm
+                bat 'cd saleapppractice/saleapp'
+                bat 'python demo.py' //
             }
         }
-        
-        stage('Bước 2: Chạy Demo (Test)') {
+        stage('Deploy lên Vercel') {
             steps {
-                dir('saleapppractice/saleapp') {
-                    bat 'python demo.py' 
-                }
+                bat 'npm install -g vercel'
+                bat 'vercel --token %VERCEL_TOKEN% --prod --yes'
             }
         }
     }
